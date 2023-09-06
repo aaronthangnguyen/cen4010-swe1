@@ -1,0 +1,11 @@
+# By default, ignore all
+*
+
+# Whitelist (Include) specific directories and files
+!src/
+!pom.xml
+!.mvn/
+!mvnw
+
+# Exclude directories or files even if they were whitelisted above
+target/

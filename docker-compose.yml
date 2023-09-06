@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  mysql-geektext:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: geektextdb
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  geektext-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql-geektext
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-geektext:3306/geektextdb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+
+volumes:
+  mysql-data:
