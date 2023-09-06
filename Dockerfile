@@ -1,25 +1,24 @@
-# Use a specific version and a slimmer image for the build stage
-FROM openjdk:20-jdk-slim as build
-
-# Set working directory
+# Use Maven image for the build stage
+FROM maven:3.9-eclipse-temurin-20 as build
 WORKDIR /app
 
-# Copy Maven configuration and executable wrapper
-COPY .mvn .mvn
-COPY mvnw .
-
+# Copy POM and download dependencies
 COPY pom.xml .
-RUN ./mvnw dependency:go-offline
+RUN mvn dependency:go-offline
 
+# Copy source code and compile the project
 COPY src src
-RUN ./mvnw -B package
+RUN mvn -B package
 
+# Use OpenJDK image for the runtime stage
 FROM openjdk:20-jdk-slim
-
 WORKDIR /app
 
-COPY --from=build /app/target/geektext-0.0.1-SNAPSHOT.jar .
+# Copy the compiled jar from the build stage
+COPY --from=build /app/target/geektext-*.jar geektext-app.jar
 
+# Expose port 8080 for the application
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "geektext-0.0.1-SNAPSHOT.jar"]
+# Define the command to run the application
+ENTRYPOINT ["java", "-jar", "geektext-app.jar"]

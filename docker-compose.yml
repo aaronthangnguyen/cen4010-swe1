@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+  # MySQL service
   mysql-geektext:
     image: mysql:8.0
     environment:
@@ -8,13 +9,16 @@ services:
       MYSQL_DATABASE: geektextdb
     ports:
       - "3306:3306"
+    # Persist MySQL data
     volumes:
       - mysql-data:/var/lib/mysql
 
+  # Geektext application service
   geektext-app:
     build:
       context: .
       dockerfile: Dockerfile
+    # Make sure MySQL starts before the app
     depends_on:
       - mysql-geektext
     ports:
@@ -24,5 +28,6 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
 
+# Named volume for MySQL persistence
 volumes:
   mysql-data:
