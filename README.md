@@ -21,5 +21,5 @@ In this project, we will create an API service to support an online web applicat
 git clone https://github.com/aaronthangnguyen/cen4010-swe1.git
 cd cen4010-swe1
 docker-compose up --build
-# Open browser at http://localhost:8080/greeting
+# Open browser at http://localhost:8080/health
 ```
