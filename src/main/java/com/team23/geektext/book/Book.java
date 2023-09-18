@@ -23,11 +23,18 @@ public class Book {
     private int yearPublished;
     private int copiesSold;
 
-    public Book() {
-    }
+    public Book() {}
 
-    public Book(String isbn, String name, String description, double price, String author, String genre,
-            String publisher, int yearPublished, int copiesSold) {
+    public Book(
+            String isbn,
+            String name,
+            String description,
+            double price,
+            String author,
+            String genre,
+            String publisher,
+            int yearPublished,
+            int copiesSold) {
         this.isbn = isbn;
         this.name = name;
         this.description = description;

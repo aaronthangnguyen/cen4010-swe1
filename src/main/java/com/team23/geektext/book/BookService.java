@@ -1,11 +1,9 @@
 package com.team23.geektext.book;
 
+import com.team23.geektext.repository.BookRepository;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.stereotype.Service;
-
-import com.team23.geektext.repository.BookRepository;
 
 @Service
 public class BookService {

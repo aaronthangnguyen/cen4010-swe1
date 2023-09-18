@@ -23,5 +23,4 @@ public class AuthorController {
         }
         return new ResponseEntity<>("Author successfully created.", HttpStatus.CREATED);
     }
-
 }
