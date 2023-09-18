@@ -14,23 +14,22 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @WebMvcTest(AuthorController.class)
 public class AuthorControllerTest {
-    @Autowired
-    private MockMvc mockMvc;
+    @Autowired private MockMvc mockMvc;
 
-    @MockBean
-    private AuthorService authorService;
+    @MockBean private AuthorService authorService;
 
     @Test
     public void testCreateNewAuthor_ValidData() throws Exception {
-        String jsonPayload = "{\"firstName\":\"John\",\"lastName\":\"Doe\",\"biography\":\"Biography\",\"publisher\":\"Publisher\"}";
+        String jsonPayload =
+                "{\"firstName\":\"John\",\"lastName\":\"Doe\",\"biography\":\"Biography\",\"publisher\":\"Publisher\"}";
 
         when(authorService.createNewAuthor(any(Author.class))).thenReturn(new Author());
 
-        mockMvc.perform(MockMvcRequestBuilders
-                .post("/api/authors")
-                .content(jsonPayload)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(
+                        MockMvcRequestBuilders.post("/api/authors")
+                                .content(jsonPayload)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.content().string("Author successfully created."));
     }
@@ -41,26 +40,27 @@ public class AuthorControllerTest {
 
         when(authorService.createNewAuthor(any(Author.class))).thenReturn(null);
 
-        mockMvc.perform(MockMvcRequestBuilders
-                .post("/api/authors")
-                .content(jsonPayload)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(
+                        MockMvcRequestBuilders.post("/api/authors")
+                                .content(jsonPayload)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.content().string("Failed to create author."));
     }
 
     @Test
     public void testCreateNewAuthor_InvalidData() throws Exception {
-        String jsonPayload = "{\"firstName\":\"\",\"lastName\":\"Doe\",\"biography\":\"Biography\",\"publisher\":\"Publisher\"}";
+        String jsonPayload =
+                "{\"firstName\":\"\",\"lastName\":\"Doe\",\"biography\":\"Biography\",\"publisher\":\"Publisher\"}";
 
         when(authorService.createNewAuthor(any(Author.class))).thenReturn(null);
 
-        mockMvc.perform(MockMvcRequestBuilders
-                .post("/api/authors")
-                .content(jsonPayload)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(
+                        MockMvcRequestBuilders.post("/api/authors")
+                                .content(jsonPayload)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.content().string("Failed to create author."));
     }

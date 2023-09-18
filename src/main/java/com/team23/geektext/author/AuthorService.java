@@ -1,8 +1,7 @@
 package com.team23.geektext.author;
 
-import org.springframework.stereotype.Service;
-
 import com.team23.geektext.repository.AuthorRepository;
+import org.springframework.stereotype.Service;
 
 @Service
 public class AuthorService {
