@@ -1,10 +1,10 @@
-package com.team23.geektext.healthcheck;
+package com.team23.geektext.common;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class HealthCheckController {
+public class HealthController {
 
     @GetMapping("/health")
     public String checkHealth() {
