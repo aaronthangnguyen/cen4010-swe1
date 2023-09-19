@@ -23,6 +23,13 @@ public class Author {
 
     public Author() {}
 
+    public Author(String firstName, String lastName, String biography, String publisher) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.biography = biography;
+        this.publisher = publisher;
+    }
+
     public UUID getId() {
         return id;
     }
