@@ -27,7 +27,7 @@ public class BookController {
     }
 
     @GetMapping("/{isbn}")
-    public ResponseEntity<?> getBookById(@PathVariable String isbn) {
+    public ResponseEntity<?> getBookByIsbn(@PathVariable String isbn) {
         Optional<Book> bookOptional = bookService.getBookByIsbn(isbn);
         if (bookOptional.isEmpty()) {
             return new ResponseEntity<String>("Book not found.", HttpStatus.NOT_FOUND);
