@@ -1,23 +1,28 @@
 package com.team23.geektext.book;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.util.UUID;
 
 @Entity
 @Table(name = "books")
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(columnDefinition = "BINARY(16)")
+    private UUID id;
 
+    @Column(unique = true)
     private String isbn;
+
     private String name;
     private String description;
     private double price;
-    private String author;
+    private UUID authorId;
     private String genre;
     private String publisher;
     private int yearPublished;
@@ -25,32 +30,11 @@ public class Book {
 
     public Book() {}
 
-    public Book(
-            String isbn,
-            String name,
-            String description,
-            double price,
-            String author,
-            String genre,
-            String publisher,
-            int yearPublished,
-            int copiesSold) {
-        this.isbn = isbn;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.author = author;
-        this.genre = genre;
-        this.publisher = publisher;
-        this.yearPublished = yearPublished;
-        this.copiesSold = copiesSold;
-    }
-
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -86,12 +70,12 @@ public class Book {
         this.price = price;
     }
 
-    public String getAuthor() {
-        return author;
+    public UUID getAuthorId() {
+        return this.authorId;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthorId(UUID authorId) {
+        this.authorId = authorId;
     }
 
     public String getGenre() {
