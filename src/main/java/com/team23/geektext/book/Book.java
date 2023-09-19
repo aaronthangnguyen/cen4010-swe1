@@ -30,6 +30,27 @@ public class Book {
 
     public Book() {}
 
+    public Book(
+            String isbn,
+            String name,
+            String description,
+            double price,
+            UUID authorId,
+            String genre,
+            String publisher,
+            int yearPublished,
+            int copiesSold) {
+        this.isbn = isbn;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.authorId = authorId;
+        this.genre = genre;
+        this.publisher = publisher;
+        this.yearPublished = yearPublished;
+        this.copiesSold = copiesSold;
+    }
+
     public UUID getId() {
         return id;
     }
