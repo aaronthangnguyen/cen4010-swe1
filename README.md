@@ -11,7 +11,7 @@ In this project, we will create an API service to support an online web applicat
 - Aaron Nguyen
 - Brenna Murphy
 - Giancarlo Nassi
-- Mariano Mossburg
+- Mariano Mossburg Hola
 - Victor Navarro Casal
 - Vuong Nguyen
 
