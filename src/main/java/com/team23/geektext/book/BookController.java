@@ -1,6 +1,7 @@
 package com.team23.geektext.book;
 
 import com.team23.geektext.exception.AuthorNotFoundException;
+import com.team23.geektext.exception.DuplicateIsbnException;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,6 +35,10 @@ public class BookController {
             return ResponseEntity.status(HttpStatus.CREATED)
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(responseMessage);
+        } catch (DuplicateIsbnException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(e.getMessage());
         } catch (AuthorNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .contentType(MediaType.APPLICATION_JSON)

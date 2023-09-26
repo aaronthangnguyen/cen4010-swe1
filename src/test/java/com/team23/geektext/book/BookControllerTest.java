@@ -7,6 +7,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team23.geektext.exception.AuthorNotFoundException;
+import com.team23.geektext.exception.DuplicateIsbnException;
+import com.team23.geektext.repository.BookRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -23,6 +25,7 @@ public class BookControllerTest {
     @Autowired private MockMvc mockMvc;
 
     @MockBean private BookService bookService;
+    @MockBean private BookRepository bookRepository;
 
     @Test
     public void testGetAllBooks_WithBooks() throws Exception {
@@ -163,6 +166,32 @@ public class BookControllerTest {
 
         result.andExpect(status().isInternalServerError())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().string(errorMessage));
+    }
+
+    @Test
+    public void testCreateNewBook_DuplicateIsbn() throws Exception {
+        Book duplicateBook =
+                new Book(
+                        "9780439064873",
+                        "Harry Potter and the Chamber of Secrets",
+                        "The second book in the Harry Potter series.",
+                        20.99,
+                        UUID.fromString("13f350f8-7481-41d3-b716-20c4a7cc2e84"),
+                        "Fantasy",
+                        "Scholastic",
+                        1998,
+                        77000000);
+
+        String errorMessage = "A book with ISBN '9780439064873' already exists.";
+        when(bookService.createNewBook(any(Book.class)))
+                .thenThrow(new DuplicateIsbnException(errorMessage));
+
+        mockMvc.perform(
+                        post("/api/books")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(asJsonString(duplicateBook)))
+                .andExpect(status().isConflict())
                 .andExpect(content().string(errorMessage));
     }
 

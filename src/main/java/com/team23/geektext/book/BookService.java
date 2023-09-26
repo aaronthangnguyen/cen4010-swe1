@@ -1,6 +1,7 @@
 package com.team23.geektext.book;
 
 import com.team23.geektext.exception.AuthorNotFoundException;
+import com.team23.geektext.exception.DuplicateIsbnException;
 import com.team23.geektext.repository.AuthorRepository;
 import com.team23.geektext.repository.BookRepository;
 import java.util.List;
@@ -11,8 +12,9 @@ public class BookService {
     private BookRepository bookRepository;
     private AuthorRepository authorRepository;
 
-    public BookService(BookRepository bookRepository) {
+    public BookService(BookRepository bookRepository, AuthorRepository authorRepository) {
         this.bookRepository = bookRepository;
+        this.authorRepository = authorRepository;
     }
 
     public List<Book> getAllBooks() {
@@ -23,6 +25,10 @@ public class BookService {
         if (!authorRepository.existsById(book.getAuthorId())) {
             throw new AuthorNotFoundException(
                     "The author with ID '" + book.getAuthorId() + "' does not exist.");
+        }
+        if (bookRepository.existsByIsbn(book.getIsbn())) {
+            throw new DuplicateIsbnException(
+                    "A book with ISBN '" + book.getIsbn() + "' already exists.");
         }
         return bookRepository.save(book);
     }
