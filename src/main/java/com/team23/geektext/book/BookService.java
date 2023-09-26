@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BookService {
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
     public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
@@ -14,5 +14,13 @@ public class BookService {
 
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
+    }
+
+    public List<Book> getAllBooksByGenre(String genre) {
+        return bookRepository.findAllByGenre(genre);
+    }
+
+    public List<Book> getTop10Sellers() {
+        return bookRepository.findTop10ByOrderByCopiesSoldDesc();
     }
 }

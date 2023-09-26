@@ -41,8 +41,7 @@ public class Book {
             String genre,
             String publisher,
             int yearPublished,
-            int copiesSold,
-            double rating) {
+            int copiesSold) {
         this.isbn = isbn;
         this.name = name;
         this.description = description;
@@ -52,7 +51,7 @@ public class Book {
         this.publisher = publisher;
         this.yearPublished = yearPublished;
         this.copiesSold = copiesSold;
-        this.rating = rating;
+        this.rating = 0;
     }
 
     public UUID getId() {
