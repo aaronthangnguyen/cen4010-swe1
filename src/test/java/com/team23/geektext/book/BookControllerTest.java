@@ -35,7 +35,8 @@ public class BookControllerTest {
                         "Fantasy",
                         "Bloomsbury Publishing",
                         1997,
-                        1000000));
+                        1000000,
+                        4.5));
         books.add(
                 new Book(
                         "978-1982105402",
@@ -46,7 +47,8 @@ public class BookControllerTest {
                         "Dystopian",
                         "Secker & Warburg",
                         1949,
-                        500000));
+                        500000,
+                        5.6));
 
         when(bookService.getAllBooks()).thenReturn(books);
 

@@ -28,6 +28,8 @@ public class Book {
     private int yearPublished;
     private int copiesSold;
 
+    private double rating;
+
     public Book() {}
 
     public Book(
@@ -39,7 +41,8 @@ public class Book {
             String genre,
             String publisher,
             int yearPublished,
-            int copiesSold) {
+            int copiesSold,
+            double rating) {
         this.isbn = isbn;
         this.name = name;
         this.description = description;
@@ -49,6 +52,7 @@ public class Book {
         this.publisher = publisher;
         this.yearPublished = yearPublished;
         this.copiesSold = copiesSold;
+        this.rating = rating;
     }
 
     public UUID getId() {
@@ -129,5 +133,9 @@ public class Book {
 
     public void setCopiesSold(int copiesSold) {
         this.copiesSold = copiesSold;
+    }
+
+    public double getRating() {
+        return rating;
     }
 }
