@@ -1,18 +1,20 @@
 package com.team23.geektext.shopping;
 
 import com.team23.geektext.book.Book;
+import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Shopping {
-    private LinkedList<Book> shoppingList;
-    private Long userID;
-    private float subTotal;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    Shopping(){
+    @ManyToOne
+    private User user;
 
-    }
-    public void addBook(Long bookID, Long userID){
-//        shoppingList.add();
-    }
+    @ManyToMany
+    private List<Book> books = new ArrayList<>();
 }
