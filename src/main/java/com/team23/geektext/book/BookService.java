@@ -5,6 +5,7 @@ import com.team23.geektext.exception.DuplicateIsbnException;
 import com.team23.geektext.repository.AuthorRepository;
 import com.team23.geektext.repository.BookRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,5 +32,9 @@ public class BookService {
                     "A book with ISBN '" + book.getIsbn() + "' already exists.");
         }
         return bookRepository.save(book);
+    }
+
+    public Optional<Book> getBookByIsbn(String isbn) {
+        return bookRepository.findByIsbn(isbn);
     }
 }
