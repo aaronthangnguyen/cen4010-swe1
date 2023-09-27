@@ -6,6 +6,8 @@ MYSQL_USER := root
 MYSQL_PASSWORD := root
 MYSQL_DATABASE := geektextdb
 
+DUMMY_SQL := src/main/resources/dummy.sql
+
 .PHONY: help
 help:
 	@echo "Usage: make [target]"
@@ -39,3 +41,9 @@ db-drop:
 db-create:
 	docker-compose -f $(COMPOSE_FILE) exec -T $(DB_SERVICE) mysql -u$(MYSQL_USER) -p$(MYSQL_PASSWORD) -e "CREATE DATABASE IF NOT EXISTS $(MYSQL_DATABASE)"
 	@echo "Database $(MYSQL_DATABASE) created."
+
+.PHONY: db-dummy
+## Load dummy to database
+db-dummy:
+	docker-compose -f $(COMPOSE_FILE) exec -T $(DB_SERVICE) mysql -u$(MYSQL_USER) -p$(MYSQL_PASSWORD) $(MYSQL_DATABASE) < $(DUMMY_SQL)
+	@echo "Dummy data loaded into $(MYSQL_DATABASE)."
