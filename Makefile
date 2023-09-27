@@ -24,7 +24,7 @@ help:
 	{ lastLine = $$0 }' $(MAKEFILE)
 
 .PHONY: start
-## Start server
+## Start application
 start:
 	docker-compose up --build
 
