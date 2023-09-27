@@ -28,6 +28,21 @@ help:
 start:
 	docker-compose up --build
 
+.PHONY: test
+## Test application
+test:
+	./mvnw test
+
+.PHONY: fmt-check
+## Check project formatting
+fmt-check:
+	./mvnw spotless:check
+
+.PHONY: fmt-apply
+## Apply project formatting
+fmt-apply:
+	./mvnw spotless:apply
+
 .PHONY: db-reset
 ## Reset database
 db-reset: db-drop db-create
