@@ -3,34 +3,34 @@ package com.team23.geektext.BookRating;
 
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
 @RestController
-@RequestMapping(path = "api/bookRating")
+@RequestMapping(path = "/api/bookRating")
 public class BookRatingController {
-    private final BookRatingService bookRatingServce;
+    private final BookRatingService bookRatingService;
 
+    @Autowired
+    public BookRatingController(BookRatingService bookRatingService) {
 
-    public BookRatingController(BookRatingService bookRatingServce) {
-        this.bookRatingServce = bookRatingServce;
+       this.bookRatingService = bookRatingService;
     }
 
 
     @GetMapping
     public List<BookRating> getBookRating() {
-        return List.of(
-                new BookRating(
-                        1L,
-                        3,
-                        7685,
-                        38293
+
+        return bookRatingService.postBookRating();
 
 
-                )
-        );
     }
 }

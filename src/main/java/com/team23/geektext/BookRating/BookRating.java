@@ -1,13 +1,14 @@
 package com.team23.geektext.BookRating;
 
 
+import java.time.LocalDateTime;
+
 public class BookRating {
     private Long id;
     private Integer rating;
     private Integer userID;
     private Integer bookID;
-
-
+    private LocalDateTime timestamp;
     public BookRating()
     {}
 
@@ -18,12 +19,14 @@ public class BookRating {
         this.rating = rating;
         this.userID = userID;
         this.bookID = bookID;
+        this.timestamp = timestamp;
     }
-    public BookRating(Integer rating, Integer userID, Integer bookID)
+    public BookRating(Integer rating, Integer userID, Integer bookID, LocalDateTime timestamp)
     {
         this.rating = rating;
         this.userID = userID;
         this.bookID = bookID;
+        this.timestamp  = timestamp;
     }
 
 
@@ -66,6 +69,13 @@ public class BookRating {
         this.bookID = bookID;
     }
 
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
 
     @Override
     public String toString() {
@@ -74,6 +84,7 @@ public class BookRating {
                 ", rating=" + rating +
                 ", userID=" + userID +
                 ", bookID=" + bookID +
+                ", Timestamp=" + timestamp +
                 '}';
     }
 }
