@@ -11,6 +11,7 @@ import com.team23.geektext.exception.DuplicateIsbnException;
 import com.team23.geektext.repository.BookRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,7 @@ public class BookControllerTest {
     @MockBean private BookRepository bookRepository;
 
     @Test
-    public void testGetAllBooks_WithBooks() throws Exception {
-
+    public void testGetAllBooks() throws Exception {
         List<Book> books = new ArrayList<>();
         UUID authorId = UUID.randomUUID();
         books.add(
@@ -193,6 +193,46 @@ public class BookControllerTest {
                                 .content(asJsonString(duplicateBook)))
                 .andExpect(status().isConflict())
                 .andExpect(content().string(errorMessage));
+    }
+
+    public void testGetBookByIsbn() throws Exception {
+        String isbn = "978-0545790352";
+        UUID authorId = UUID.randomUUID();
+        Book book =
+                new Book(
+                        isbn,
+                        "Harry Potter and the Sorcerer's Stone",
+                        "Fantasy novel",
+                        19.99,
+                        authorId,
+                        "Fantasy",
+                        "Bloomsbury Publishing",
+                        1997,
+                        1000000);
+
+        when(bookService.getBookByIsbn(isbn)).thenReturn(Optional.of(book));
+
+        mockMvc.perform(get("/api/books/{isbn}", isbn).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.isbn").value(isbn))
+                .andExpect(jsonPath("$.name").value("Harry Potter and the Sorcerer's Stone"))
+                .andExpect(jsonPath("$.authorId").value(authorId.toString()));
+    }
+
+    @Test
+    public void testGetBookByIsbn_NotExists() throws Exception {
+        String isbn = "non-existent-isbn";
+
+        when(bookService.getBookByIsbn(isbn)).thenReturn(Optional.empty());
+
+        mockMvc.perform(get("/api/books/{isbn}", isbn).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(
+                        jsonPath("$")
+                                .value(
+                                        "The requested book with ISBN 'non-existent-isbn' does not"
+                                                + " exist."));
     }
 
     private String asJsonString(Object obj) throws Exception {
