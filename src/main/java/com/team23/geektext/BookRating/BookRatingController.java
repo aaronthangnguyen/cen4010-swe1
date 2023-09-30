@@ -16,10 +16,8 @@ public class BookRatingController {
     @Autowired
     public BookRatingController(BookRatingService bookRatingService) {
 
-
         this.bookRatingService = bookRatingService;
     }
-
 
     @PostMapping
     public ResponseEntity<Void> rating(@RequestBody BookRatingRequest request)
@@ -30,7 +28,7 @@ public class BookRatingController {
         bookRating.setBookID(request.getBookID());
         bookRating.setTimestamp(request.getTimeStamp);
 
-
+        bookRatingService.save(bookRating);
         return ResponseEntity.ok().build();
     }
 
