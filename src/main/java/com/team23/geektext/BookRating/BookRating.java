@@ -1,86 +1,76 @@
 package com.team23.geektext.BookRating;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import java.time.LocalDateTime;
 
+
+@Entity
 public class BookRating {
-    private Long id;
-    private Integer rating;
-    private Integer userID;
-    private Integer bookID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+
+    private int rating;
+    private Long userID;
+    private Long bookID;
     private LocalDateTime timestamp;
     public BookRating()
     {}
 
 
-    public BookRating(Long id, Integer rating, Integer userID, Integer bookID)
-    {
-        this.id = id;
-        this.rating = rating;
-        this.userID = userID;
-        this.bookID = bookID;
-        this.timestamp = timestamp;
-    }
-    public BookRating(Integer rating, Integer userID, Integer bookID, LocalDateTime timestamp)
+    public BookRating(int rating, Long userID, Long bookID)
     {
         this.rating = rating;
         this.userID = userID;
         this.bookID = bookID;
-        this.timestamp  = timestamp;
     }
 
 
-    public Long getId() {
-        return id;
-    }
-
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
-    public Integer getRating() {
+    public int getRating() {
         return rating;
     }
 
 
-    public Integer getUserID() {
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+    public Long getUserID() {
         return userID;
     }
 
 
-    public void setUserID(Integer userID) {
+    public void setUserID(Long userID) {
         this.userID = userID;
     }
 
 
-    public void setRating(Integer rating) {
-        this.rating = rating;
-    }
-
-
-    public Integer getBookID() {
+    public Long getBookID() {
         return bookID;
     }
 
 
-    public void setBookID(Integer bookID) {
+    public void setBookID(Long bookID) {
         this.bookID = bookID;
     }
+
 
     public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
+
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 
+
     @Override
     public String toString() {
         return "BookRating{" +
-                "id=" + id +
                 ", rating=" + rating +
                 ", userID=" + userID +
                 ", bookID=" + bookID +
