@@ -16,5 +16,5 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
 
     List<Book> findAllByGenre(String genre);
 
-    List<Book> findTop10Seller();
+    List<Book> findTop10ByOrderByCopiesSoldDesc();
 }

@@ -42,7 +42,9 @@ public class BookService {
         return bookRepository.findAllByGenre(genre);
     }
 
-    public List<Book> getTop10Sellers() {
-        return bookRepository.findTop10Seller();
+    public List<Book> findTop10ByOrderByCopiesSoldDesc() {
+        return bookRepository.findTop10ByOrderByCopiesSoldDesc();
     }
+
+
 }

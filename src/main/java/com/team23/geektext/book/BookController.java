@@ -68,8 +68,8 @@ public class BookController {
     }
 
     @GetMapping("/top-seller")
-    public ResponseEntity<List<Book>> getTop10Sellers() {
-        List<Book> books = bookService.getTop10Sellers();
+    public ResponseEntity<List<Book>> findTop10ByOrderByCopiesSoldDesc() {
+        List<Book> books = bookService.findTop10ByOrderByCopiesSoldDesc();
         return new ResponseEntity<List<Book>>(books, HttpStatus.OK);
     }
 
