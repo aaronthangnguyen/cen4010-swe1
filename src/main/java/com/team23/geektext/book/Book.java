@@ -18,7 +18,6 @@ public class Book {
 
     @Column(unique = true)
     private String isbn;
-
     private String name;
     private String description;
     private double price;
@@ -27,6 +26,8 @@ public class Book {
     private String publisher;
     private int yearPublished;
     private int copiesSold;
+
+    private double rating;
 
     public Book() {}
 
@@ -49,6 +50,7 @@ public class Book {
         this.publisher = publisher;
         this.yearPublished = yearPublished;
         this.copiesSold = copiesSold;
+        this.rating = 0;
     }
 
     public UUID getId() {
@@ -129,5 +131,9 @@ public class Book {
 
     public void setCopiesSold(int copiesSold) {
         this.copiesSold = copiesSold;
+    }
+
+    public double getRating() {
+    	return rating;
     }
 }

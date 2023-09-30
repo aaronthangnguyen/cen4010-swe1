@@ -28,7 +28,6 @@ public class BookController {
         List<Book> books = bookService.getAllBooks();
         return new ResponseEntity<List<Book>>(books, HttpStatus.OK);
     }
-
     @PostMapping
     public ResponseEntity<?> createNewBook(@RequestBody Book book) {
         try {
@@ -61,4 +60,19 @@ public class BookController {
         }
         return new ResponseEntity<Book>(bookOptional.get(), HttpStatus.OK);
     }
+
+    @GetMapping("/genre/{genre}")
+    public ResponseEntity<List<Book>> getAllBooksByGenre(@PathVariable String genre) {
+        List<Book> books = bookService.getAllBooksByGenre(genre);
+        return new ResponseEntity<List<Book>>(books, HttpStatus.OK);
+    }
+
+    @GetMapping("/top-seller")
+    public ResponseEntity<List<Book>> getTop10Sellers() {
+        List<Book> books = bookService.getTop10Sellers();
+        return new ResponseEntity<List<Book>>(books, HttpStatus.OK);
+    }
+
+
+
 }

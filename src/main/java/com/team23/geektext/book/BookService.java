@@ -37,4 +37,12 @@ public class BookService {
     public Optional<Book> getBookByIsbn(String isbn) {
         return bookRepository.findByIsbn(isbn);
     }
+
+    public List<Book> getAllBooksByGenre(String genre) {
+        return bookRepository.findAllByGenre(genre);
+    }
+
+    public List<Book> getTop10Sellers() {
+        return bookRepository.findTop10Seller();
+    }
 }
