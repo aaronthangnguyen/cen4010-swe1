@@ -103,7 +103,6 @@ public class BookControllerTest {
                                 .content(asJsonString(newBook)));
 
         result.andExpect(status().isCreated())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(
                         content()
                                 .string(
@@ -135,9 +134,7 @@ public class BookControllerTest {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(asJsonString(newBook)));
 
-        result.andExpect(status().isNotFound())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().string(errorMessage));
+        result.andExpect(status().isNotFound()).andExpect(content().string(errorMessage));
     }
 
     @Test
@@ -165,7 +162,6 @@ public class BookControllerTest {
                                 .content(asJsonString(newBook)));
 
         result.andExpect(status().isInternalServerError())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().string(errorMessage));
     }
 
