@@ -48,7 +48,7 @@ public class BookController {
     public ResponseEntity<?> getBookByIsbn(@PathVariable String isbn) {
         Optional<Book> bookOptional = bookService.getBookByIsbn(isbn);
         if (bookOptional.isEmpty()) {
-            String errorMessage = "The requested book with ISBN '" + isbn + "' does not exist.";
+            String errorMessage = "Book with ISBN '" + isbn + "' not found.";
             return new ResponseEntity<String>(errorMessage, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Book>(bookOptional.get(), HttpStatus.OK);

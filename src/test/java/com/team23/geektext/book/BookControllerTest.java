@@ -224,11 +224,7 @@ public class BookControllerTest {
 
         mockMvc.perform(get("/api/books/{isbn}", isbn).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
-                .andExpect(
-                        jsonPath("$")
-                                .value(
-                                        "The requested book with ISBN 'non-existent-isbn' does not"
-                                                + " exist."));
+                .andExpect(jsonPath("$").value("Book with ISBN 'non-existent-isbn' not found."));
     }
 
     private String asJsonString(Object obj) throws Exception {
