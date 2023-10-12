@@ -1,3 +1,8 @@
+ifeq ($(OS),Windows_NT)
+    MVNW = ./mvnw.cmd
+else
+    MVNW = ./mvnw
+endif
 MAKEFILE := Makefile
 COMPOSE_FILE := docker-compose.yml
 DB_SERVICE := mysql-geektext
@@ -31,17 +36,17 @@ start:
 .PHONY: test
 ## Test application
 test:
-	./mvnw test
+	$(MVNW) test
 
 .PHONY: fmt-check
 ## Check project formatting
 fmt-check:
-	./mvnw spotless:check
+	$(MVNW) spotless:check
 
 .PHONY: fmt-apply
 ## Apply project formatting
 fmt-apply:
-	./mvnw spotless:apply
+	$(MVNW) spotless:apply
 
 .PHONY: db-reset
 ## Reset database

@@ -45,6 +45,4 @@ public class BookService {
     public List<Book> findTop10ByOrderByCopiesSoldDesc() {
         return bookRepository.findTop10ByOrderByCopiesSoldDesc();
     }
-
-
 }

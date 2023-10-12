@@ -28,6 +28,7 @@ public class BookController {
         List<Book> books = bookService.getAllBooks();
         return new ResponseEntity<List<Book>>(books, HttpStatus.OK);
     }
+
     @PostMapping
     public ResponseEntity<?> createNewBook(@RequestBody Book book) {
         try {
@@ -72,7 +73,4 @@ public class BookController {
         List<Book> books = bookService.findTop10ByOrderByCopiesSoldDesc();
         return new ResponseEntity<List<Book>>(books, HttpStatus.OK);
     }
-
-
-
 }
