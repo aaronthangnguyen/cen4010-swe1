@@ -34,6 +34,28 @@ public class BookService {
         return bookRepository.save(book);
     }
 
+    public void updatePricesByPublisher(double discountPercent, String publisher) {
+        if (discountPercent < 0) {
+            throw new IllegalArgumentException("Discount percent must be non-negative");
+        }
+        if (publisher == null || publisher.trim().isEmpty()) {
+            throw new IllegalArgumentException("Publisher cannot be null or blank");
+        }
+
+        List<Book> books = bookRepository.findByPublisher(publisher);
+
+        if (books.isEmpty()) {
+            throw new PublisherNotFoundException("Publisher not found");
+        }
+
+        double discountRate = 1 - (discountPercent / 100);
+        for (Book book : books) {
+            double newPrice = book.getPrice() * discountRate;
+            book.setPrice(newPrice);
+            bookRepository.save(book);
+        }
+    }
+
     public Optional<Book> getBookByIsbn(String isbn) {
         return bookRepository.findByIsbn(isbn);
     }

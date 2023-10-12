@@ -28,7 +28,6 @@ public class Book {
     private int yearPublished;
     private int copiesSold;
 
-
     public Book() {}
 
     public Book(
@@ -89,6 +88,9 @@ public class Book {
     }
 
     public void setPrice(double price) {
+        if (price < 0) {
+            throw new IllegalArgumentException("Price cannot be negative");
+        }
         this.price = price;
     }
 
@@ -131,6 +133,4 @@ public class Book {
     public void setCopiesSold(int copiesSold) {
         this.copiesSold = copiesSold;
     }
-
-
 }
