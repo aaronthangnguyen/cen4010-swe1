@@ -5,10 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 
-
-
 @RestController
-@RequestMapping(path = "/api/bookRating")
+@RequestMapping("/api/bookRating")
 public class BookRatingController {
     private final BookRatingService bookRatingService;
 
@@ -20,8 +18,7 @@ public class BookRatingController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> rating(@RequestBody BookRatingRequest request)
-    {
+    public ResponseEntity<Void> rating(@RequestBody BookRatingRequest request) {
         BookRating bookRating = new BookRating();
         bookRating.setRating(request.getRating());
         bookRating.setUserID(request.getUserID());
@@ -31,7 +28,12 @@ public class BookRatingController {
         bookRatingService.save(bookRating);
         return ResponseEntity.ok().build();
     }
-
+    @GetMapping("/average/{bookID}")
+    public ResponseEntity<Double> getAverageRating(@PathVariable Long bookID)
+    {
+        Double averageRating = bookRatingService.getAverageRatingForBook(bookID);
+        return ResponseEntity.ok(averageRating);
+    }
     public static class BookRatingRequest
     {
 

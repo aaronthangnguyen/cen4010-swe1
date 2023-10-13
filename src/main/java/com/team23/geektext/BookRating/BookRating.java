@@ -13,7 +13,6 @@ public class BookRating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-
     private double rating;
     private Long userID;
     private Long bookID;
@@ -29,11 +28,9 @@ public class BookRating {
         this.bookID = bookID;
     }
 
-
     public double getRating() {
         return rating;
     }
-
 
     public void setRating(double rating) {
         this.rating = rating;
@@ -42,31 +39,25 @@ public class BookRating {
         return userID;
     }
 
-
     public void setUserID(Long userID) {
         this.userID = userID;
     }
-
 
     public Long getBookID() {
         return bookID;
     }
 
-
     public void setBookID(Long bookID) {
         this.bookID = bookID;
     }
-
 
     public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
-
 
     @Override
     public String toString() {
