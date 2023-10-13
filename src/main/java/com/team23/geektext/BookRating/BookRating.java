@@ -14,7 +14,7 @@ public class BookRating {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
 
-    private int rating;
+    private double rating;
     private Long userID;
     private Long bookID;
     private LocalDateTime timestamp;
@@ -30,12 +30,12 @@ public class BookRating {
     }
 
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
     public Long getUserID() {

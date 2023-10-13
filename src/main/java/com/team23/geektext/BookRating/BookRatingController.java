@@ -38,7 +38,7 @@ public class BookRatingController {
         public LocalDateTime getTimeStamp;
         private Long userID;
         private Long bookID;
-        private int rating;
+        private double rating;
 
 
         public Long getBookID() {
@@ -61,12 +61,12 @@ public class BookRatingController {
         }
 
 
-        public int getRating() {
+        public double getRating() {
             return rating;
         }
 
 
-        public void setRating(int rating) {
+        public void setRating(double rating) {
             this.rating = rating;
         }
 
