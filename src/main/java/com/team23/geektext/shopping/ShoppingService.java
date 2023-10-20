@@ -12,8 +12,8 @@ import java.util.*;
 @Service
 public class ShoppingService {
 
-//    @Autowired
-//    private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private BookRepository bookRepository;
@@ -24,24 +24,26 @@ public class ShoppingService {
     public double getSubtotal(Long userId) {
         Shopping cart = userRepository.findById(userId).get().getCart();
         return cart.getBooks().stream().mapToDouble(Book::getPrice).sum();
+        return 0;
     }
 
     public void addBookToCart(Long userId, Long bookId) {
-//        User user = userRepository.findById(userId).get();
-        Book book = bookRepository.findById(bookId).get();
-        Shopping cart = user.getCart();
-        cart.getBooks().add(book);
-        cartRepository.save(cart);
+       User user = userRepository.findById(userId).get();
+       Book book = bookRepository.findById(bookId).get();
+       Shopping cart = user.getCart();
+       cart.getBooks().add(book);
+       cartRepository.save(cart);
     }
 
     public List<Book> getBooksInCart(Long userId) {
         return userRepository.findById(userId).get().getCart().getBooks();
+        return null;
     }
 
     public void deleteBookFromCart(Long userId, Long bookId) {
         User user = userRepository.findById(userId).get();
         Book book = bookRepository.findById(bookId).get();
-        Cart cart = user.getCart();
+        Shopping cart = user.getCart();
         cart.getBooks().remove(book);
         cartRepository.save(cart);
     }

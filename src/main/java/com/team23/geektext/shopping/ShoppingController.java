@@ -10,10 +10,10 @@ import java.util.LinkedList;
 
 @RequestMapping("/api/shopping-cart")
 @RestController
-public class ShoppingCartController {
+public class ShoppingController {
 
     @Autowired
-    private ShoppingCartService shoppingCartService;
+    private ShoppingService shoppingCartService;
 
     @GetMapping("/subtotal")
     public ResponseEntity<Double> getSubtotal(@RequestParam Long userId) {
