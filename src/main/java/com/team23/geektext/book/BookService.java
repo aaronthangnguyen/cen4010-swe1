@@ -6,6 +6,7 @@ import com.team23.geektext.repository.AuthorRepository;
 import com.team23.geektext.repository.BookRepository;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -36,5 +37,9 @@ public class BookService {
 
     public Optional<Book> getBookByIsbn(String isbn) {
         return bookRepository.findByIsbn(isbn);
+    }
+
+    public List<Book> getBooksByAuthorId(UUID authorId) {
+        return bookRepository.findByAuthorId(authorId);
     }
 }
