@@ -13,9 +13,13 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
 
     Optional<Book> findByIsbn(String isbn);
 
+
     List<Book> findAllByGenre(String genre);
 
     List<Book> findTop10ByOrderByCopiesSoldDesc();
 
     List<Book> findByPublisher(String publisher);
+
+    List<Book> findByAuthorId(UUID authorId);
+
 }

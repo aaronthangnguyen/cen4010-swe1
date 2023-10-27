@@ -6,6 +6,7 @@ import com.team23.geektext.repository.AuthorRepository;
 import com.team23.geektext.repository.BookRepository;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -60,11 +61,16 @@ public class BookService {
         return bookRepository.findByIsbn(isbn);
     }
 
+
     public List<Book> getAllBooksByGenre(String genre) {
         return bookRepository.findAllByGenre(genre);
     }
 
     public List<Book> findTop10ByOrderByCopiesSoldDesc() {
         return bookRepository.findTop10ByOrderByCopiesSoldDesc();
+
+    public List<Book> getBooksByAuthorId(UUID authorId) {
+        return bookRepository.findByAuthorId(authorId);
+
     }
 }

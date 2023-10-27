@@ -4,9 +4,18 @@ import com.team23.geektext.exception.AuthorNotFoundException;
 import com.team23.geektext.exception.DuplicateIsbnException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 @RequestMapping("/api/books")
@@ -18,9 +27,20 @@ public class BookController {
     }
 
     @GetMapping
+
     public ResponseEntity<List<Book>> getAllBooks() {
         List<Book> books = bookService.getAllBooks();
         return new ResponseEntity<>(books, HttpStatus.OK);
+  
+    public ResponseEntity<List<Book>> getBooks(
+            @RequestParam(name = "author_id", required = false) UUID authorId) {
+        if (authorId != null) {
+            List<Book> booksByAuthor = bookService.getBooksByAuthorId(authorId);
+            return new ResponseEntity<>(booksByAuthor, HttpStatus.OK);
+        }
+
+        List<Book> allBooks = bookService.getAllBooks();
+        return new ResponseEntity<>(allBooks, HttpStatus.OK);
     }
 
     @PostMapping
@@ -43,6 +63,7 @@ public class BookController {
     public ResponseEntity<?> getBookByIsbn(@PathVariable String isbn) {
         Optional<Book> bookOptional = bookService.getBookByIsbn(isbn);
         if (bookOptional.isEmpty()) {
+
             String errorMessage = "The requested book with ISBN '" + isbn + "' does not exist.";
             return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
         }
@@ -79,6 +100,9 @@ public class BookController {
         } catch (Exception e) {
             return new ResponseEntity<>(
                     "An error occurred while updating prices", HttpStatus.INTERNAL_SERVER_ERROR);
+
+            String errorMessage = "Book with ISBN '" + isbn + "' not found.";
+            return new ResponseEntity<String>(errorMessage, HttpStatus.NOT_FOUND);
         }
     }
 }
