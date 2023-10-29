@@ -81,6 +81,61 @@ public class BookControllerTest {
     }
 
     @Test
+    public void testGetBooksByAuthorId() throws Exception {
+        UUID authorId = UUID.randomUUID();
+        List<Book> booksByAuthor = new ArrayList<>();
+        booksByAuthor.add(
+                new Book(
+                        "978-0545790352",
+                        "Harry Potter and the Sorcerer's Stone",
+                        "Fantasy novel",
+                        19.99,
+                        authorId,
+                        "Fantasy",
+                        "Bloomsbury Publishing",
+                        1997,
+                        1000000));
+        booksByAuthor.add(
+                new Book(
+                        "978-1982105402",
+                        "1984",
+                        "Dystopian novel",
+                        15.99,
+                        authorId,
+                        "Dystopian",
+                        "Secker & Warburg",
+                        1949,
+                        500000));
+
+        when(bookService.getBooksByAuthorId(authorId)).thenReturn(booksByAuthor);
+
+        mockMvc.perform(
+                        get("/api/books")
+                                .param("author_id", authorId.toString())
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$[0].isbn").value("978-0545790352"))
+                .andExpect(jsonPath("$[0].name").value("Harry Potter and the Sorcerer's Stone"))
+                .andExpect(jsonPath("$[0].authorId").value(authorId.toString()))
+                .andExpect(jsonPath("$[1].isbn").value("978-1982105402"))
+                .andExpect(jsonPath("$[1].name").value("1984"))
+                .andExpect(jsonPath("$[1].authorId").value(authorId.toString()));
+    }
+
+    @Test
+    public void testGetBooksByAuthorId_Empty() throws Exception {
+        UUID authorId = UUID.randomUUID();
+        List<Book> emptyList = new ArrayList<>();
+        when(bookService.getBooksByAuthorId(authorId)).thenReturn(emptyList);
+
+        mockMvc.perform(get("/api/books").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$").isEmpty());
+    }
+
+    @Test
     public void testCreateNewBook_Success() throws Exception {
         Book newBook =
                 new Book(
@@ -224,11 +279,7 @@ public class BookControllerTest {
 
         mockMvc.perform(get("/api/books/{isbn}", isbn).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
-                .andExpect(
-                        jsonPath("$")
-                                .value(
-                                        "The requested book with ISBN 'non-existent-isbn' does not"
-                                                + " exist."));
+                .andExpect(jsonPath("$").value("Book with ISBN 'non-existent-isbn' not found."));
     }
 
     private String asJsonString(Object obj) throws Exception {
