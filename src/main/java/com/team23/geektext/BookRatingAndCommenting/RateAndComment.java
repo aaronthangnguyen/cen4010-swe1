@@ -1,4 +1,4 @@
-package com.team23.geektext.BookRating;
+package com.team23.geektext.BookRatingAndCommenting;
 
 
 import jakarta.persistence.Entity;
@@ -6,26 +6,30 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 
 @Entity
-public class BookRating {
+public class RateAndComment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
+    // fields
+    private UUID id;
 
     private double rating;
     private Long userID;
     private Long bookID;
     private LocalDateTime timestamp;
-    public BookRating()
-    {}
+    private String comment;
 
 
-    public BookRating(int rating, Long userID, Long bookID)
-    {
-        this.rating = rating;
-        this.userID = userID;
-        this.bookID = bookID;
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public double getRating() {
@@ -59,13 +63,22 @@ public class BookRating {
         this.timestamp = timestamp;
     }
 
+    public String getComment() {
+        return comment;
+    }
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
     @Override
     public String toString() {
         return "BookRating{" +
-                ", rating=" + rating +
-                ", userID=" + userID +
-                ", bookID=" + bookID +
-                ", Timestamp=" + timestamp +
+                ", rating: " + rating +
+                ", userID: " + userID +
+                ", bookID: " + bookID +
+                ", Timestamp: " + timestamp +
+                ", comment: " + comment +
                 '}';
+
+         }
     }
-}
+
