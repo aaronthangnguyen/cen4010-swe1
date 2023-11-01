@@ -1,13 +1,16 @@
 package com.team23.geektext.shopping;
+
 import com.team23.geektext.book.Book;
+import com.team23.geektext.profile.User;
+import com.team23.geektext.profile.UserRepository;
 import com.team23.geektext.repository.BookRepository;
 import com.team23.geektext.repository.ShoppingCartRepository;
-//import com.team23.geektext.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
-import java.util.*;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ShoppingService {
@@ -22,30 +25,40 @@ public class ShoppingService {
     private ShoppingCartRepository cartRepository;
 
     public double getSubtotal(Long userId) {
-        Shopping cart = userRepository.findById(userId).get().getCart();
-        return cart.getBooks().stream().mapToDouble(Book::getPrice).sum();
+        User user = userRepository.findById(userId).orElse(null);
+        if (user != null) {
+            return user.getCart().getBooks().stream().mapToDouble(Book::getPrice).sum();
+        }
         return 0;
     }
 
-    public void addBookToCart(Long userId, Long bookId) {
-       User user = userRepository.findById(userId).get();
-       Book book = bookRepository.findById(bookId).get();
-       Shopping cart = user.getCart();
-       cart.getBooks().add(book);
-       cartRepository.save(cart);
+    public void addBookToCart(Long userId, UUID bookId) {
+        User user = userRepository.findById(userId).orElse(null);
+        if (user != null) {
+            Book book = bookRepository.findById(bookId).orElse(null);
+            if (book != null) {
+                user.getCart().getBooks().add(book);
+                cartRepository.save(user.getCart());
+            }
+        }
     }
 
     public List<Book> getBooksInCart(Long userId) {
-        return userRepository.findById(userId).get().getCart().getBooks();
+        User user = userRepository.findById(userId).orElse(null);
+        if (user != null) {
+            return user.getCart().getBooks();
+        }
         return null;
     }
 
-    public void deleteBookFromCart(Long userId, Long bookId) {
-        User user = userRepository.findById(userId).get();
-        Book book = bookRepository.findById(bookId).get();
-        Shopping cart = user.getCart();
-        cart.getBooks().remove(book);
-        cartRepository.save(cart);
+    public void deleteBookFromCart(Long userId, UUID bookId) {
+        User user = userRepository.findById(userId).orElse(null);
+        if (user != null) {
+            Book book = bookRepository.findById(bookId).orElse(null);
+            if (book != null) {
+                user.getCart().getBooks().remove(book);
+                cartRepository.save(user.getCart());
+            }
+        }
     }
 }
-

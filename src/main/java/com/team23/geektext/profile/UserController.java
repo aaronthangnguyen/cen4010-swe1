@@ -1,2 +1,3 @@
-package com.team23.geektext.profile;public class UserController {
+package com.team23.geektext.profile;
+public class UserController {
 }
