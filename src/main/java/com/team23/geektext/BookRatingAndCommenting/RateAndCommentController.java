@@ -1,7 +1,5 @@
 package com.team23.geektext.BookRatingAndCommenting;
 
-import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,24 +9,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/rateAndComment")
 public class RateAndCommentController {
-
     private final RateAndCommentService rateAndCommentService;
 
-    //Business logic
-    @Autowired
     public RateAndCommentController(RateAndCommentService rateAndCommentService) {
-        this.rateAndCommentService = rateAndCommentService;
-    }
 
-    @GetMapping("/hello")
-    public String sayHello() {
-        return "***********Hello Aliens**************";
-    }
+        this.rateAndCommentService = rateAndCommentService;}
+
     @PostMapping("/rate")
-    public ResponseEntity<String> rateBook(@RequestBody RateRequest rateRequest) {
+    public ResponseEntity<String> rateBook(@RequestBody RateAndComment rateAndComment) {
         try {
-            rateAndCommentService.rateBook(rateRequest);
-            String responseMessage = "Rating for book with ID '" + rateRequest.getBookID() + "' successfully created.";
+            RateAndComment savedRating = rateAndCommentService.rateBook(rateAndComment);
+            String responseMessage = "successfully created rating.";
             return ResponseEntity.status(HttpStatus.CREATED).body(responseMessage);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -37,10 +28,10 @@ public class RateAndCommentController {
     }
 
     @PostMapping("/comment")
-    public ResponseEntity<String> commentOnBook(@RequestBody CommentRequest commentRequest) {
+    public ResponseEntity<String> commentOnBook(@RequestBody RateAndComment rateAndComment) {
         try {
-            RateAndComment commentedBook = rateAndCommentService.commentOnBook(commentRequest);
-            String responseMessage = "Comment for book with ID '" + commentRequest.getBookID() + "' successfully created.";
+            RateAndComment commentedBook = rateAndCommentService.commentOnBook(rateAndComment);
+            String responseMessage = "successfully created comment.";
             return ResponseEntity.status(HttpStatus.CREATED).body(responseMessage);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -78,18 +69,4 @@ public class RateAndCommentController {
     }
 }
 
-//DTO
-@Data
-class RateRequest {
-    private double rating;
-    private Long userID;
-    private Long bookID;
-}
-
-@Data
-class CommentRequest {
-    private String comment;
-    private Long userID;
-    private Long bookID;
-}
 

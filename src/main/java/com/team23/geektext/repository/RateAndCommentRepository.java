@@ -10,5 +10,5 @@ public interface RateAndCommentRepository extends JpaRepository<RateAndComment, 
 
     List<RateAndComment> findByBookID(Long bookID);
     @Query("SELECT AVG(r.rating) FROM RateAndComment r WHERE r.bookID = ?1")
-    double findAverageRatingByBookID(Long bookID);
+    Double findAverageRatingByBookID(Long bookID);
 }

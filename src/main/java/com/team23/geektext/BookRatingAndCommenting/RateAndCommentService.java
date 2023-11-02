@@ -14,10 +14,6 @@ public class RateAndCommentService {
     public RateAndCommentService(RateAndCommentRepository rateAndCommentRepository) {
         this.rateAndCommentRepository = rateAndCommentRepository;
     }
-    public void save(RateAndComment rateAndComment)
-    {
-        rateAndCommentRepository.save(rateAndComment);
-    }
     public Double getAverageRatingForBook(Long bookID)
     {
         return rateAndCommentRepository.findAverageRatingByBookID(bookID);
@@ -25,7 +21,7 @@ public class RateAndCommentService {
     public List<RateAndComment> getRatingsAndCommentsForBook(Long bookID) {
         return rateAndCommentRepository.findByBookID(bookID);
     }
-    public void rateBook(RateRequest rateRequest) {
+    public RateAndComment rateBook(RateAndComment rateRequest) {
         RateAndComment rateAndComment = new RateAndComment();
         rateAndComment.setRating(rateRequest.getRating());
         rateAndComment.setUserID(rateRequest.getUserID());
@@ -33,8 +29,9 @@ public class RateAndCommentService {
         rateAndComment.setTimestamp(LocalDateTime.now());
         rateAndCommentRepository.save(rateAndComment);
 
+        return rateAndComment;
     }
-    public RateAndComment commentOnBook(CommentRequest commentRequest) {
+    public RateAndComment commentOnBook(RateAndComment commentRequest) {
         RateAndComment rateAndComment = new RateAndComment();
         rateAndComment.setUserID(commentRequest.getUserID());
         rateAndComment.setBookID(commentRequest.getBookID());

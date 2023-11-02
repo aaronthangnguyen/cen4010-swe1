@@ -1,71 +1,67 @@
 package com.team23.geektext.BookRatingAndCommenting;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Getter;
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 
+@Getter
 @Entity
 public class RateAndComment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
-    // fields
+    @Column(columnDefinition = "BINARY(16)")
     private UUID id;
+    // fields
 
+    @Column
     private double rating;
     private Long userID;
     private Long bookID;
-    private LocalDateTime timestamp;
     private String comment;
 
+    @CreationTimestamp
+    private LocalDateTime timestamp;
 
-    public UUID getId() {
-        return id;
+    public RateAndComment(
+            double rating,
+            Long userID,
+            Long bookID,
+            String comment) {
+        this.rating = rating;
+        this.userID = userID;
+        this.bookID = bookID;
+        this.comment = comment;
+    }
+
+    public RateAndComment() {
+
     }
 
     public void setId(UUID id) {
         this.id = id;
     }
 
-    public double getRating() {
-        return rating;
-    }
-
     public void setRating(double rating) {
         this.rating = rating;
-    }
-    public Long getUserID() {
-        return userID;
     }
 
     public void setUserID(Long userID) {
         this.userID = userID;
     }
 
-    public Long getBookID() {
-        return bookID;
-    }
-
     public void setBookID(Long bookID) {
         this.bookID = bookID;
-    }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
     }
 
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 
-    public String getComment() {
-        return comment;
-    }
     public void setComment(String comment) {
         this.comment = comment;
     }
