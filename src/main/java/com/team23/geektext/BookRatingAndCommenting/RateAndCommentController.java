@@ -18,7 +18,6 @@ public class RateAndCommentController {
     @PostMapping("/rate")
     public ResponseEntity<String> rateBook(@RequestBody RateAndComment rateAndComment) {
         try {
-            RateAndComment savedRating = rateAndCommentService.rateBook(rateAndComment);
             String responseMessage = "successfully created rating.";
             return ResponseEntity.status(HttpStatus.CREATED).body(responseMessage);
         } catch (Exception e) {
@@ -30,7 +29,6 @@ public class RateAndCommentController {
     @PostMapping("/comment")
     public ResponseEntity<String> commentOnBook(@RequestBody RateAndComment rateAndComment) {
         try {
-            RateAndComment commentedBook = rateAndCommentService.commentOnBook(rateAndComment);
             String responseMessage = "successfully created comment.";
             return ResponseEntity.status(HttpStatus.CREATED).body(responseMessage);
         } catch (Exception e) {
@@ -45,9 +43,9 @@ public class RateAndCommentController {
             Double averageRating = rateAndCommentService.getAverageRatingForBook(bookID);
             if (averageRating == null) {
                 String errorMessage = "No ratings found for book with ID '" + bookID + "'.";
-                return new ResponseEntity<String>(errorMessage, HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
             }
-            return new ResponseEntity<Double>(averageRating, HttpStatus.OK);
+            return new ResponseEntity<>(averageRating, HttpStatus.OK);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("An unexpected error occurred while fetching average rating.");
