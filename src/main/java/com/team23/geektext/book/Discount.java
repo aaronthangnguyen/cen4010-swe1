@@ -1,12 +1,12 @@
 package com.team23.geektext.book;
 
-public class DiscountDTO {
+public class Discount {
     private double discountPercent;
     private String publisher;
 
-    public DiscountDTO() {}
+    public Discount() {}
 
-    public DiscountDTO(double discountPercent, String publisher) {
+    public Discount(double discountPercent, String publisher) {
         this.discountPercent = discountPercent;
         this.publisher = publisher;
     }

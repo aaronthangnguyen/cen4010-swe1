@@ -2,6 +2,7 @@ package com.team23.geektext.book;
 
 import com.team23.geektext.exception.AuthorNotFoundException;
 import com.team23.geektext.exception.DuplicateIsbnException;
+import com.team23.geektext.exception.PublisherNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -69,10 +70,10 @@ public class BookController {
     }
 
     @PatchMapping("/discount")
-    public ResponseEntity<String> discountBooksByPublisher(@RequestBody DiscountDTO discountDto) {
+    public ResponseEntity<String> discountBooksByPublisher(@RequestBody Discount discount) {
         try {
-            double discountPercent = discountDto.getDiscountPercent();
-            String publisher = discountDto.getPublisher();
+            double discountPercent = discount.getDiscountPercent();
+            String publisher = discount.getPublisher();
             bookService.updatePricesByPublisher(discountPercent, publisher);
             String responseMessage =
                     "All books by publisher '"
