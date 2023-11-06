@@ -1,5 +1,4 @@
-package com.team23.geektext.BookRatingAndCommenting;
-
+package com.team23.geektext.Review;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,20 +7,17 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-
 @Getter
 @Entity
 public class RateAndComment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(columnDefinition = "BINARY(16)")
-    private UUID id;
-    // fields
+    private UUID bookID;
 
     @Column
-    private double rating;
     private UUID userID;
-    private UUID bookID;
+    private double rating;
     private String comment;
 
     @CreationTimestamp
@@ -40,10 +36,6 @@ public class RateAndComment {
 
     public RateAndComment() {
 
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public void setRating(double rating) {
