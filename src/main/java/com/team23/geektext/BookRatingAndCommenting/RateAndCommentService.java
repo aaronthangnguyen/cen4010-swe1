@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 public class RateAndCommentService {
@@ -14,12 +15,12 @@ public class RateAndCommentService {
     public RateAndCommentService(RateAndCommentRepository rateAndCommentRepository) {
         this.rateAndCommentRepository = rateAndCommentRepository;
     }
-    public Double getAverageRatingForBook(Long bookID)
+    public Double getAverageRatingForBook(UUID bookID)
     {
         return rateAndCommentRepository.findAverageRatingByBookID(bookID);
     }
-    public List<RateAndComment> getRatingsAndCommentsForBook(Long bookID) {
-        return rateAndCommentRepository.findByBookID(bookID);
+    public List<RateAndComment> getRatingsAndCommentsForBook(UUID bookID) {
+        return rateAndCommentRepository.findByBookId(bookID);
     }
     public RateAndComment rateBook(RateAndComment rateRequest) {
         RateAndComment rateAndComment = new RateAndComment();

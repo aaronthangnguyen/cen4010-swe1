@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface RateAndCommentRepository extends JpaRepository<RateAndComment, UUID> {
 
-    List<RateAndComment> findByBookID(Long bookID);
-    @Query("SELECT AVG(r.rating) FROM RateAndComment r WHERE r.bookID = ?1")
-    Double findAverageRatingByBookID(Long bookID);
+    List<RateAndComment> findByBookId(UUID bookId);
+    @Query("SELECT AVG(r.rating) FROM RateAndComment r WHERE r.bookId = ?1")
+    Double findAverageRatingByBookID(UUID bookId);
 }

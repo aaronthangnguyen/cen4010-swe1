@@ -20,8 +20,8 @@ public class RateAndComment {
 
     @Column
     private double rating;
-    private Long userID;
-    private Long bookID;
+    private UUID userID;
+    private UUID bookID;
     private String comment;
 
     @CreationTimestamp
@@ -29,8 +29,8 @@ public class RateAndComment {
 
     public RateAndComment(
             double rating,
-            Long userID,
-            Long bookID,
+            UUID userID,
+            UUID bookID,
             String comment) {
         this.rating = rating;
         this.userID = userID;
@@ -50,11 +50,11 @@ public class RateAndComment {
         this.rating = rating;
     }
 
-    public void setUserID(Long userID) {
+    public void setUserID(UUID userID) {
         this.userID = userID;
     }
 
-    public void setBookID(Long bookID) {
+    public void setBookID(UUID bookID) {
         this.bookID = bookID;
     }
 
