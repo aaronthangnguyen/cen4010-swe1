@@ -42,4 +42,22 @@ public class BookService {
     public List<Book> getBooksByAuthorId(UUID authorId) {
         return bookRepository.findByAuthorId(authorId);
     }
+
+    public List<Book> getAllBooksByGenre(String genre) {
+        return bookRepository.findByGenre(genre);
+    }
+
+    public List<Book> findTop10ByOrderByCopiesSoldDesc() {
+        return bookRepository.findTop10ByOrderByCopiesSoldDesc();
+    }
+
+    public void updatePricesByPublisher(double discountPercent, String publisher) {
+        List<Book> books = bookRepository.findByPublisher(publisher);
+        for (Book book : books) {
+            double price = book.getPrice();
+            double newPrice = price * (1 - discountPercent / 100);
+            book.setPrice(newPrice);
+            bookRepository.save(book);
+        }
+    }
 }
