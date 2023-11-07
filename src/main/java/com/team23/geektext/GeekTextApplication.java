@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class GeekTextApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(GeekTextApplication.class, args);
+        SpringApplication.
+                run(GeekTextApplication.class, args);
     }
 }
