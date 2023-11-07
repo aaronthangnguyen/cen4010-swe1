@@ -26,7 +26,7 @@ public class ShoppingController {
         }
     }
 
-    
+
     @PostMapping("/addBook")
     public ResponseEntity<Void> addBookToCart(@RequestParam Long userId, @RequestParam UUID bookId) {
         shoppingCartService.addBookToCart(userId, bookId);
@@ -43,6 +43,7 @@ public class ShoppingController {
         }
     }
 
+    
     @DeleteMapping("/deleteBook")
     public ResponseEntity<Void> deleteBookFromCart(@RequestParam Long userId, @RequestParam UUID bookId) {
         shoppingCartService.deleteBookFromCart(userId, bookId);
