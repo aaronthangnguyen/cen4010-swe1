@@ -61,12 +61,12 @@ public class BookService {
         List<Book> books = bookRepository.findByPublisher(publisher);
         for (Book book : books) {
             double price = book.getPrice();
-            double newPrice = price * (1 - discountPercent);
+            double newPrice = price * (1 - discountPercent / 100);
             book.setPrice(newPrice);
             bookRepository.save(book);
         }
     }
-
+  
     public List<Book> getBooksByRatingOrHigher(double rating) {
         List<String> bookIdStrings = rateAndCommentRepository.findBookIdsByRatingOrHigher(rating);
         return bookIdStrings.stream()
@@ -78,4 +78,5 @@ public class BookService {
                 )
                 .collect(Collectors.toList());
     }
+
 }

@@ -2,6 +2,7 @@ package com.team23.geektext.book;
 
 import com.team23.geektext.exception.AuthorNotFoundException;
 import com.team23.geektext.exception.DuplicateIsbnException;
+import com.team23.geektext.exception.PublisherNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -89,7 +90,6 @@ public class BookController {
                     "An error occurred while updating prices", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
     @GetMapping("/by-rating")
     public ResponseEntity<List<Book>> getBooksByRatingOrHigher(
             @RequestParam(name = "rating") double rating) {
