@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.UUID;
 
 
 @RestController
@@ -49,7 +50,7 @@ public class RateAndCommentController {
     }
 
     @GetMapping("/average/{bookID}")
-    public ResponseEntity<?> getAverageRating(@PathVariable Long bookID) {
+    public ResponseEntity<?> getAverageRating(@PathVariable UUID bookID) {
         try {
             Double averageRating = rateAndCommentService.getAverageRatingForBook(bookID);
             if (averageRating == null) {
@@ -63,7 +64,7 @@ public class RateAndCommentController {
         }
     }
     @GetMapping("/ratings/{bookID}")
-    public ResponseEntity<?> getRatingsAndCommentsForBook(@PathVariable Long bookID) {
+    public ResponseEntity<?> getRatingsAndCommentsForBook(@PathVariable UUID bookID) {
         try {
             List<RateAndComment> ratingsAndComments = rateAndCommentService.getRatingsAndCommentsForBook(bookID);
             if (ratingsAndComments.isEmpty()) {
@@ -83,13 +84,13 @@ public class RateAndCommentController {
 class RateRequest {
     private double rating;
     private Long userID;
-    private Long bookID;
+    private UUID bookID;
 }
 
 @Data
 class CommentRequest {
     private String comment;
     private Long userID;
-    private Long bookID;
+    private UUID bookID;
 }
 

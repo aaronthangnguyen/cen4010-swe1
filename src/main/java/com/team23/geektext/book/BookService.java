@@ -7,16 +7,22 @@ import com.team23.geektext.repository.BookRepository;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
+import com.team23.geektext.repository.RateAndCommentRepository;
 
 @Service
 public class BookService {
     private BookRepository bookRepository;
     private AuthorRepository authorRepository;
 
-    public BookService(BookRepository bookRepository, AuthorRepository authorRepository) {
+    private RateAndCommentRepository rateAndCommentRepository;
+
+    public BookService(BookRepository bookRepository, AuthorRepository authorRepository, RateAndCommentRepository rateAndCommentRepository) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
+        this.rateAndCommentRepository = rateAndCommentRepository;
     }
 
     public List<Book> getAllBooks() {
@@ -59,5 +65,17 @@ public class BookService {
             book.setPrice(newPrice);
             bookRepository.save(book);
         }
+    }
+
+    public List<Book> getBooksByRatingOrHigher(double rating) {
+        List<String> bookIdStrings = rateAndCommentRepository.findBookIdsByRatingOrHigher(rating);
+        return bookIdStrings.stream()
+                .map(UUID::fromString)
+                .map(bookRepository::findById)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .peek(book -> book.setAverageRating(rateAndCommentRepository.findAverageRatingByBookID(book.getId()))
+                )
+                .collect(Collectors.toList());
     }
 }

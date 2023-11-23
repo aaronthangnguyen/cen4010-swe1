@@ -1,5 +1,5 @@
 ifeq ($(OS),Windows_NT)
-    MVNW = ./mvnw.cmd
+    MVNW = mvnw.cmd
 else
     MVNW = ./mvnw
 endif

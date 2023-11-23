@@ -19,7 +19,7 @@ public class RateAndComment {
 
     private double rating;
     private Long userID;
-    private Long bookID;
+    private UUID bookID;
     private LocalDateTime timestamp;
     private String comment;
 
@@ -47,11 +47,11 @@ public class RateAndComment {
         this.userID = userID;
     }
 
-    public Long getBookID() {
+    public UUID getBookID() {
         return bookID;
     }
 
-    public void setBookID(Long bookID) {
+    public void setBookID(UUID bookID) {
         this.bookID = bookID;
     }
 
