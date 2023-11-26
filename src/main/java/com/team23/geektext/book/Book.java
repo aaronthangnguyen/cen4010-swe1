@@ -28,6 +28,7 @@ public class Book {
     private int yearPublished;
     private int copiesSold;
 
+    private double averageRating;
     public Book() {}
 
     public Book(
@@ -129,5 +130,13 @@ public class Book {
 
     public void setCopiesSold(int copiesSold) {
         this.copiesSold = copiesSold;
+    }
+
+    public double getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(double averageRating) {
+        this.averageRating = averageRating;
     }
 }

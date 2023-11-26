@@ -6,6 +6,7 @@ import com.team23.geektext.exception.PublisherNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import com.team23.geektext.exception.PublisherNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -87,6 +88,19 @@ public class BookController {
         } catch (Exception e) {
             return new ResponseEntity<>(
                     "An error occurred while updating prices", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("/by-rating")
+    public ResponseEntity<List<Book>> getBooksByRatingOrHigher(
+            @RequestParam(name = "rating") double rating) {
+        try {
+            List<Book> books = bookService.getBooksByRatingOrHigher(rating);
+            if (books.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(books, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

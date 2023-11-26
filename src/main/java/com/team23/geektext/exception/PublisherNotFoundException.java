@@ -5,3 +5,4 @@ public class PublisherNotFoundException extends RuntimeException {
         super(message);
     }
 }
+
